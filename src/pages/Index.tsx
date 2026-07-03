@@ -7,7 +7,7 @@ import AmbientBackground from '@/components/AmbientBackground';
 import LeadForm from '@/components/LeadForm';
 
 const HERO_IMG =
-  'https://cdn.poehali.dev/projects/70c08813-52c6-4b83-841e-a32c44eb23fa/files/4cbdfc70-dae8-4cfd-a073-1057ef20dd18.jpg';
+  'https://cdn.poehali.dev/projects/70c08813-52c6-4b83-841e-a32c44eb23fa/bucket/9853dff6-980a-4ec3-b4f6-fcaaf5524e61.jpg';
 
 const services = [
   {
