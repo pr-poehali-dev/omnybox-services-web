@@ -136,7 +136,7 @@ export default function Index() {
               <img
                 src={HERO_IMG}
                 alt="Автоматизация бизнеса omnybox"
-                className="rounded-[1.5rem] w-full aspect-square object-cover mx-0"
+                className="rounded-[1.5rem] w-full aspect-square mx-0 object-cover"
               />
             </div>
             <div className="absolute -bottom-5 -left-5 glass-strong rounded-2xl px-5 py-4 flex items-center gap-3">
