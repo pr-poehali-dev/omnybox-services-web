@@ -303,7 +303,7 @@ export default function Index() {
                 className="mt-1.5 w-full rounded-xl bg-white/70 border border-white/70 px-4 py-3 outline-none focus:ring-2 focus:ring-[hsl(var(--brand))]/40 transition resize-none"
               />
             </div>
-            <Button type="submit" size="lg" className="w-full brand-gradient border-0 rounded-xl h-13 shadow-lg shadow-indigo-500/25 hover:opacity-90">
+            <Button type="submit" size="lg" className="w-full brand-gradient border-0 rounded-xl h-16 shadow-lg shadow-indigo-500/25 hover:opacity-90">
               Отправить заявку
             </Button>
             <p className="text-xs text-muted-foreground text-center">
