@@ -58,12 +58,7 @@ export default function Index() {
       {/* Header */}
       <header className="fixed top-4 inset-x-0 z-50 px-4">
         <div className="container max-w-6xl mx-auto glass-strong rounded-2xl px-5 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
-            <span className="brand-gradient text-white h-8 w-8 rounded-lg grid place-items-center">
-              <Icon name="Hexagon" size={18} />
-            </span>
-            omnybox
-          </a>
+          <a href="#home" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">OMNIBOX</a>
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((l) => (
               <a
@@ -141,7 +136,7 @@ export default function Index() {
               <img
                 src={HERO_IMG}
                 alt="Автоматизация бизнеса omnybox"
-                className="rounded-[1.5rem] w-full aspect-square object-cover"
+                className="rounded-[1.5rem] w-full aspect-square object-cover mx-0"
               />
             </div>
             <div className="absolute -bottom-5 -left-5 glass-strong rounded-2xl px-5 py-4 flex items-center gap-3">
