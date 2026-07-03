@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import SiteHeader from '@/components/SiteHeader';
+import SiteFooter from '@/components/SiteFooter';
+import AmbientBackground from '@/components/AmbientBackground';
+import LeadForm from '@/components/LeadForm';
 
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/70c08813-52c6-4b83-841e-a32c44eb23fa/files/4cbdfc70-dae8-4cfd-a073-1057ef20dd18.jpg';
@@ -10,22 +14,28 @@ const services = [
     icon: 'Boxes',
     tag: '1С:Предприятие',
     title: 'Автоматизация на базе 1С',
-    text: 'Внедрение и доработка 1С под ваши процессы: учёт, склад, зарплата, торговля. Настраиваем обмены, отчёты и интеграции.',
-    points: ['Внедрение и доработка', 'Интеграции и обмены', 'Отчёты и аналитика'],
+    text: 'Внедрение и доработка 1С под ваши процессы: учёт, склад, зарплата, торговля.',
+    href: '/1c',
+    grad: 'brand-gradient',
+    shadow: 'shadow-indigo-500/25',
   },
   {
     icon: 'LayoutGrid',
     tag: 'Битрикс24',
     title: 'Настройка Битрикс24',
-    text: 'Превращаем Битрикс24 в рабочий инструмент: CRM, воронки продаж, автоматизация задач, телефония и бизнес-процессы.',
-    points: ['Настройка CRM и воронок', 'Бизнес-процессы', 'Телефония и интеграции'],
+    text: 'CRM, воронки продаж, автоматизация задач, телефония и бизнес-процессы.',
+    href: '/bitrix24',
+    grad: 'brand-gradient-2',
+    shadow: 'shadow-orange-500/25',
   },
   {
     icon: 'Globe',
     tag: '1С-Битрикс',
     title: 'Разработка сайтов',
-    text: 'Создаём сайты и интернет-магазины на «1С-Битрикс: Управление сайтом» с интеграцией в 1С и Битрикс24.',
-    points: ['Сайты и магазины', 'Интеграция с 1С', 'Поддержка и развитие'],
+    text: 'Сайты и интернет-магазины на «1С-Битрикс: Управление сайтом».',
+    href: '/websites',
+    grad: 'brand-gradient-3',
+    shadow: 'shadow-teal-500/25',
   },
 ];
 
@@ -36,90 +46,11 @@ const stats = [
   { value: '24/7', label: 'поддержка' },
 ];
 
-const navLinks = [
-  { href: '#home', label: 'Главная' },
-  { href: '#services', label: 'Услуги' },
-  { href: '#about', label: 'О компании' },
-  { href: '#contacts', label: 'Контакты' },
-];
-
-const LEAD_URL = 'https://functions.poehali.dev/2129fb8c-af59-48fe-a37a-4b9af759d11c';
-
 export default function Index() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [form, setForm] = useState({ name: '', contact: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name.trim() || !form.contact.trim()) return;
-    setStatus('sending');
-    try {
-      const res = await fetch(LEAD_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error();
-      setStatus('success');
-      setForm({ name: '', contact: '', message: '' });
-    } catch {
-      setStatus('error');
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white text-foreground overflow-x-hidden font-sans">
-      {/* Ambient blobs background */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute -top-32 -left-24 h-[420px] w-[420px] rounded-full bg-[hsl(var(--brand))]/20 blur-3xl animate-blob" />
-        <div className="absolute top-1/3 -right-20 h-[380px] w-[380px] rounded-full bg-[hsl(var(--brand-2))]/20 blur-3xl animate-blob [animation-delay:4s]" />
-        <div className="absolute bottom-0 left-1/4 h-[360px] w-[360px] rounded-full bg-sky-300/20 blur-3xl animate-blob [animation-delay:8s]" />
-      </div>
-
-      {/* Header */}
-      <header className="fixed top-4 inset-x-0 z-50 px-4">
-        <div className="container max-w-6xl mx-auto glass-strong rounded-2xl px-5 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">OMNIBOX</a>
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-white/60 transition-colors"
-              >
-                {l.label}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-2">
-            <Button asChild className="hidden sm:inline-flex brand-gradient border-0 rounded-xl shadow-lg shadow-indigo-500/20 hover:opacity-90">
-              <a href="#contacts">Обсудить проект</a>
-            </Button>
-            <button
-              className="md:hidden h-10 w-10 grid place-items-center rounded-lg hover:bg-white/60"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Меню"
-            >
-              <Icon name={menuOpen ? 'X' : 'Menu'} size={22} />
-            </button>
-          </div>
-        </div>
-        {menuOpen && (
-          <div className="container max-w-6xl mx-auto mt-2 glass-strong rounded-2xl p-3 md:hidden animate-fade-in-up">
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className="block px-4 py-3 rounded-lg font-medium hover:bg-white/60"
-              >
-                {l.label}
-              </a>
-            ))}
-          </div>
-        )}
-      </header>
+      <AmbientBackground />
+      <SiteHeader />
 
       {/* Hero */}
       <section id="home" className="relative pt-40 pb-24 px-4">
@@ -158,11 +89,11 @@ export default function Index() {
               <img
                 src={HERO_IMG}
                 alt="Автоматизация бизнеса omnybox"
-                className="rounded-[1.5rem] w-full aspect-square mx-0 object-cover"
+                className="rounded-[1.5rem] w-full aspect-square object-cover"
               />
             </div>
             <div className="absolute -bottom-5 -left-5 glass-strong rounded-2xl px-5 py-4 flex items-center gap-3">
-              <span className="brand-gradient text-white h-10 w-10 rounded-xl grid place-items-center">
+              <span className="brand-gradient-2 text-white h-10 w-10 rounded-xl grid place-items-center">
                 <Icon name="TrendingUp" size={20} />
               </span>
               <div>
@@ -188,12 +119,13 @@ export default function Index() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((s, i) => (
-              <div
+              <Link
                 key={s.title}
-                className="group glass rounded-3xl p-8 hover:-translate-y-2 transition-all duration-300 hover:glass-strong animate-fade-in-up"
+                to={s.href}
+                className={`group glass rounded-3xl p-8 hover:-translate-y-2 transition-all duration-300 hover:glass-strong animate-fade-in-up block`}
                 style={{ animationDelay: `${i * 120}ms` }}
               >
-                <div className="brand-gradient text-white h-14 w-14 rounded-2xl grid place-items-center shadow-lg shadow-indigo-500/25 group-hover:scale-110 transition-transform">
+                <div className={`${s.grad} text-white h-14 w-14 rounded-2xl grid place-items-center shadow-lg ${s.shadow} group-hover:scale-110 transition-transform`}>
                   <Icon name={s.icon} size={26} />
                 </div>
                 <span className="inline-block mt-6 text-xs font-semibold text-[hsl(var(--brand))] bg-[hsl(var(--brand))]/10 rounded-full px-3 py-1">
@@ -201,15 +133,10 @@ export default function Index() {
                 </span>
                 <h3 className="font-display font-bold text-xl mt-3 tracking-tight">{s.title}</h3>
                 <p className="text-muted-foreground text-sm mt-3 leading-relaxed">{s.text}</p>
-                <ul className="mt-5 space-y-2">
-                  {s.points.map((p) => (
-                    <li key={p} className="flex items-center gap-2 text-sm">
-                      <Icon name="Check" size={16} className="text-[hsl(var(--brand))]" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <span className="inline-flex items-center gap-1 mt-5 text-sm font-semibold text-[hsl(var(--brand))] group-hover:gap-2 transition-all">
+                  Подробнее <Icon name="ArrowRight" size={16} />
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -230,14 +157,14 @@ export default function Index() {
             </p>
             <div className="mt-8 grid sm:grid-cols-2 gap-4">
               {[
-                { icon: 'ShieldCheck', title: 'Сертифицированные специалисты', text: 'Официальные партнёры 1С и Битрикс' },
-                { icon: 'Clock', title: 'Сроки под контролем', text: 'Прозрачные этапы и отчётность' },
-                { icon: 'Headphones', title: 'Поддержка после запуска', text: 'Сопровождаем и развиваем проект' },
-                { icon: 'Layers', title: 'Комплексный подход', text: 'Все услуги в одной команде' },
+                { icon: 'ShieldCheck', title: 'Сертифицированные специалисты', text: 'Официальные партнёры 1С и Битрикс', grad: 'brand-gradient' },
+                { icon: 'Clock', title: 'Сроки под контролем', text: 'Прозрачные этапы и отчётность', grad: 'brand-gradient-2' },
+                { icon: 'Headphones', title: 'Поддержка после запуска', text: 'Сопровождаем и развиваем проект', grad: 'brand-gradient-3' },
+                { icon: 'Layers', title: 'Комплексный подход', text: 'Все услуги в одной команде', grad: 'brand-gradient' },
               ].map((f) => (
                 <div key={f.title} className="glass rounded-2xl p-4 flex gap-3">
-                  <span className="text-[hsl(var(--brand))] shrink-0">
-                    <Icon name={f.icon} size={22} />
+                  <span className={`${f.grad} text-white shrink-0 h-9 w-9 rounded-lg grid place-items-center`}>
+                    <Icon name={f.icon} size={18} />
                   </span>
                   <div>
                     <div className="font-semibold text-sm">{f.title}</div>
@@ -267,118 +194,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Contacts */}
-      <section id="contacts" className="py-24 px-4">
-        <div className="container max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-stretch">
-          <div className="glass-strong rounded-3xl p-8 sm:p-10">
-            <span className="brand-text font-semibold text-sm uppercase tracking-widest">Контакты</span>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mt-3 tracking-tight">
-              Расскажите о задаче
-            </h2>
-            <p className="text-muted-foreground mt-4">
-              Оставьте заявку — обсудим ваш проект и предложим решение.
-            </p>
-            <div className="mt-8 space-y-4">
-              {[
-                { icon: 'Phone', label: 'Телефон', value: '+7 (900) 000-00-00' },
-                { icon: 'Mail', label: 'Почта', value: 'hello@omnybox.ru' },
-                { icon: 'MapPin', label: 'Офис', value: 'Россия, Москва' },
-              ].map((c) => (
-                <div key={c.label} className="flex items-center gap-4">
-                  <span className="brand-gradient text-white h-11 w-11 rounded-xl grid place-items-center">
-                    <Icon name={c.icon} size={20} />
-                  </span>
-                  <div>
-                    <div className="text-xs text-muted-foreground">{c.label}</div>
-                    <div className="font-semibold">{c.value}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <form
-            className="glass rounded-3xl p-8 sm:p-10 space-y-4"
-            onSubmit={handleSubmit}
-          >
-            <div>
-              <label className="text-sm font-medium">Ваше имя</label>
-              <input
-                type="text"
-                placeholder="Иван"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="mt-1.5 w-full h-12 rounded-xl bg-white/70 border-2 border-slate-300 px-4 outline-none focus:border-[hsl(var(--brand))] focus:ring-2 focus:ring-[hsl(var(--brand))]/30 transition"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Телефон или почта</label>
-              <input
-                type="text"
-                placeholder="+7 900 000-00-00"
-                value={form.contact}
-                onChange={(e) => setForm({ ...form, contact: e.target.value })}
-                className="mt-1.5 w-full h-12 rounded-xl bg-white/70 border-2 border-slate-300 px-4 outline-none focus:border-[hsl(var(--brand))] focus:ring-2 focus:ring-[hsl(var(--brand))]/30 transition"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium">Опишите задачу</label>
-              <textarea
-                rows={4}
-                placeholder="Например: нужно настроить CRM в Битрикс24 и связать с 1С"
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="mt-1.5 w-full rounded-xl bg-white/70 border-2 border-slate-300 px-4 py-3 outline-none focus:border-[hsl(var(--brand))] focus:ring-2 focus:ring-[hsl(var(--brand))]/30 transition resize-none"
-              />
-            </div>
-            <Button
-              type="submit"
-              size="lg"
-              disabled={status === 'sending'}
-              className="w-full brand-gradient border-0 rounded-xl h-16 shadow-lg shadow-indigo-500/25 hover:opacity-90"
-            >
-              {status === 'sending' ? 'Отправляем...' : 'Отправить заявку'}
-            </Button>
-            {status === 'success' && (
-              <p className="text-sm text-green-600 text-center font-medium">
-                Заявка отправлена! Мы скоро свяжемся с вами.
-              </p>
-            )}
-            {status === 'error' && (
-              <p className="text-sm text-red-500 text-center font-medium">
-                Не удалось отправить. Попробуйте ещё раз.
-              </p>
-            )}
-            <p className="text-xs text-muted-foreground text-center">
-              Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
-            </p>
-          </form>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="px-4 pb-10">
-        <div className="container max-w-6xl mx-auto glass rounded-2xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 font-display font-bold">
-            <span className="brand-gradient text-white h-7 w-7 rounded-lg grid place-items-center">
-              <Icon name="Hexagon" size={15} />
-            </span>
-            omnybox
-          </div>
-          <p className="text-sm text-muted-foreground">© 2026 omnybox. Автоматизация бизнеса.</p>
-          <div className="flex gap-2">
-            {['Send', 'MessageCircle', 'Mail'].map((ic) => (
-              <a
-                key={ic}
-                href="#contacts"
-                className="h-9 w-9 grid place-items-center rounded-lg hover:bg-white/70 text-muted-foreground hover:text-foreground transition"
-              >
-                <Icon name={ic} size={18} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <LeadForm />
+      <SiteFooter />
     </div>
   );
 }
