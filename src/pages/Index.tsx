@@ -284,7 +284,7 @@ export default function Index() {
               <input
                 type="text"
                 placeholder="Иван"
-                className="mt-1.5 w-full h-12 rounded-xl bg-white/70 border border-white/70 px-4 outline-none focus:ring-2 focus:ring-[hsl(var(--brand))]/40 transition"
+                className="mt-1.5 w-full h-12 rounded-xl bg-white/70 border-2 border-slate-300 px-4 outline-none focus:border-[hsl(var(--brand))] focus:ring-2 focus:ring-[hsl(var(--brand))]/30 transition"
               />
             </div>
             <div>
@@ -292,7 +292,7 @@ export default function Index() {
               <input
                 type="text"
                 placeholder="+7 900 000-00-00"
-                className="mt-1.5 w-full h-12 rounded-xl bg-white/70 border border-white/70 px-4 outline-none focus:ring-2 focus:ring-[hsl(var(--brand))]/40 transition"
+                className="mt-1.5 w-full h-12 rounded-xl bg-white/70 border-2 border-slate-300 px-4 outline-none focus:border-[hsl(var(--brand))] focus:ring-2 focus:ring-[hsl(var(--brand))]/30 transition"
               />
             </div>
             <div>
@@ -300,7 +300,7 @@ export default function Index() {
               <textarea
                 rows={4}
                 placeholder="Например: нужно настроить CRM в Битрикс24 и связать с 1С"
-                className="mt-1.5 w-full rounded-xl bg-white/70 border border-white/70 px-4 py-3 outline-none focus:ring-2 focus:ring-[hsl(var(--brand))]/40 transition resize-none"
+                className="mt-1.5 w-full rounded-xl bg-white/70 border-2 border-slate-300 px-4 py-3 outline-none focus:border-[hsl(var(--brand))] focus:ring-2 focus:ring-[hsl(var(--brand))]/30 transition resize-none"
               />
             </div>
             <Button type="submit" size="lg" className="w-full brand-gradient border-0 rounded-xl h-16 shadow-lg shadow-indigo-500/25 hover:opacity-90">
